@@ -130,6 +130,104 @@
     </button>
   </section>
 
+  <section class="coupon-section" id="cupones">
+    <div class="coupon-heading">
+      <div>
+        <p class="section-kicker">Seis planes para seguir celebrando</p>
+        <h2>Tu billetera<br>de cupones</h2>
+      </div>
+      <div class="coupon-heading-note">
+        <span aria-hidden="true">♡</span>
+        <p>
+          Elige el plan que más te provoque, guárdalo o envía el mensaje de canje.
+          Cada cupón es una promesa de tiempo bonito contigo.
+        </p>
+      </div>
+    </div>
+
+    <div class="coupon-wallet">
+      <article class="coupon-feature" [class.is-used]="selectedCouponIsUsed" aria-live="polite">
+        <div class="coupon-feature-topline">
+          <span>Cupón seleccionado</span>
+          <strong>{{ selectedCoupon.code }} / {{ couponTotalCode }}</strong>
+        </div>
+
+        <figure class="coupon-image-wrap">
+          <img [src]="selectedCoupon.preview" [alt]="'Cupón para Kimberly: ' + selectedCoupon.title">
+          @if (selectedCouponIsUsed) {
+            <span class="used-stamp">Usado ♡</span>
+          }
+        </figure>
+
+        <div class="coupon-feature-copy">
+          <div>
+            <p>Plan elegido para Kimberly</p>
+            <h3>{{ selectedCoupon.title }}</h3>
+          </div>
+          <p>{{ selectedCoupon.detail }}</p>
+        </div>
+
+        <div class="coupon-actions">
+          <a class="coupon-action download-action" [href]="selectedCoupon.image" download>
+            <span aria-hidden="true">↓</span>
+            <span><small>Guardar imagen</small>Descargar cupón</span>
+          </a>
+          <a class="coupon-action whatsapp-action" [href]="whatsappUrl" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">↗</span>
+            <span><small>Mensaje listo</small>Canjear por WhatsApp</span>
+          </a>
+          <button
+            class="coupon-used-toggle"
+            type="button"
+            [attr.aria-pressed]="selectedCouponIsUsed"
+            (click)="toggleCouponUsed()"
+          >
+            <span aria-hidden="true">{{ selectedCouponIsUsed ? '↺' : '✓' }}</span>
+            {{ selectedCouponIsUsed ? 'Restaurar cupón' : 'Marcar como usado' }}
+          </button>
+        </div>
+
+        <p class="coupon-helper">
+          <span aria-hidden="true">✦</span> WhatsApp se abrirá con el mensaje listo para enviar.
+        </p>
+      </article>
+
+      <div class="coupon-picker" aria-label="Elige uno de los seis cupones">
+        <div class="coupon-picker-heading">
+          <p>Elige tu próximo plan</p>
+          <span>{{ usedCouponCount }} de {{ coupons.length }} usados</span>
+        </div>
+
+        <div class="coupon-list">
+          @for (coupon of coupons; track coupon.id) {
+            <button
+              class="coupon-option"
+              type="button"
+              [class.is-selected]="coupon.id === selectedCoupon.id"
+              [class.is-used]="isCouponUsed(coupon.id)"
+              [attr.aria-pressed]="coupon.id === selectedCoupon.id"
+              (click)="selectCoupon(coupon.id)"
+            >
+              <span class="coupon-option-image">
+                <img [src]="coupon.preview" alt="">
+                @if (isCouponUsed(coupon.id)) {
+                  <i aria-label="Cupón usado">✓</i>
+                }
+              </span>
+              <span class="coupon-option-copy">
+                <small>Cupón {{ coupon.code }}</small>
+                <strong>{{ coupon.title }}</strong>
+              </span>
+              <span class="coupon-option-arrow" aria-hidden="true">→</span>
+            </button>
+          }
+        </div>
+
+        <p class="coupon-disclaimer">Regalos personales creados con cariño para Kimberly.</p>
+      </div>
+    </div>
+  </section>
+
   <div class="love-ribbon" aria-label="Un mensaje para Kimberly">
     <div>
       <span>tu risa</span><i>✦</i><span>tu luz</span><i>♡</i><span>tu forma de querer</span><i>✦</i>
