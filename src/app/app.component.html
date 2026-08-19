@@ -1,0 +1,199 @@
+<main class="birthday-page">
+  <div class="paper-grain" aria-hidden="true"></div>
+  <div class="confetti confetti-a" aria-hidden="true"></div>
+  <div class="confetti confetti-b" aria-hidden="true"></div>
+  <div class="confetti confetti-c" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark" aria-hidden="true">✿</span>
+      <span>Para Kimberly</span>
+    </a>
+    <p class="occasion">Un día para celebrarte</p>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="balloon balloon-coral balloon-left" aria-hidden="true">
+      <span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span>
+    </div>
+    <div class="balloon balloon-plum balloon-right" aria-hidden="true">
+      <span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span>
+    </div>
+    <div class="balloon balloon-gold balloon-small" aria-hidden="true">
+      <span class="balloon-shine"></span><span class="balloon-knot"></span><span class="balloon-string"></span>
+    </div>
+
+    <div class="hero-copy">
+      <p class="eyebrow"><span>✦</span> Hoy celebramos a alguien increíble <span>✦</span></p>
+      <h1>Feliz vuelta al sol,<span class="kimberly">Kimberly</span></h1>
+      <p class="hero-message">
+        Que este nuevo año de vida te abrace tan bonito como tú abrazas mis días.
+        Hoy celebro tu risa, tu luz y la suerte inmensa de tenerte.
+      </p>
+      <div class="hero-actions">
+        <button class="primary-button" type="button" (click)="scrollToSurprise()">
+          <span>Abrir tu regalo</span><span class="button-icon" aria-hidden="true">↘</span>
+        </button>
+        <p class="made-with"><span aria-hidden="true">♡</span> Hecho con muchísimo amor</p>
+      </div>
+    </div>
+
+    <div class="hero-keepsake" aria-label="Una pequeña nota para Kimberly">
+      <span class="tape" aria-hidden="true"></span>
+      <div class="mini-cake" aria-hidden="true">
+        <span class="candle-flame"></span><span class="candle"></span>
+        <span class="frosting">● ● ●</span><span class="cake-body"></span><span class="cake-plate"></span>
+      </div>
+      <p>Mi deseo favorito</p>
+      <strong>Que la vida te devuelva toda la alegría que regalas.</strong>
+      <span class="note-signature">Con amor, siempre ♡</span>
+    </div>
+
+    <div class="scroll-note" aria-hidden="true"><span>Descubre tu sorpresa</span><i></i></div>
+  </section>
+
+  <section class="wishes-section" id="sorpresa">
+    <div class="section-heading">
+      <p class="section-kicker">Tres regalos que no caben en una caja</p>
+      <h2>Todo esto deseo para ti</h2>
+      <p>Porque alguien tan especial merece un año lleno de cosas bonitas.</p>
+    </div>
+
+    <div class="wish-grid">
+      @for (wish of wishes; track wish.number) {
+        <article [class]="'wish-card ' + wish.className">
+          <div class="wish-topline"><span>{{ wish.number }}</span><i>{{ wish.symbol }}</i></div>
+          <h3>{{ wish.title }}</h3>
+          <p>{{ wish.text }}</p>
+          <span class="wish-squiggle" aria-hidden="true">⌁⌁⌁</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="sunflower-section" [class.bouquet-ready]="bouquetReady">
+    <div class="sunflower-heading">
+      <div>
+        <p class="section-kicker">Flores que siempre buscan la luz</p>
+        <h2>Un ramo de girasoles<br>solo para ti</h2>
+      </div>
+      <p>
+        Cada flor guarda un deseo: alegría, valentía, calma, aventuras,
+        amor, sueños cumplidos y muchos motivos para sonreír.
+      </p>
+    </div>
+
+    <div class="bouquet-stage" aria-live="polite">
+      <div class="pollen-field" aria-hidden="true">
+        @for (dot of pollen; track dot) {
+          <i [style.--pollen]="dot"></i>
+        }
+      </div>
+
+      @for (flower of flowers; track flower) {
+        <div [class]="'sunflower flower-' + (flower + 1)" aria-hidden="true">
+          <span class="sunflower-stem">
+            <i class="leaf leaf-one"></i><i class="leaf leaf-two"></i>
+          </span>
+          <span class="sunflower-head">
+            @for (petal of petals; track petal) {
+              <i class="sunflower-petal" [style.--petal]="petal"></i>
+            }
+            <b class="sunflower-center"></b>
+          </span>
+        </div>
+      }
+
+      <div class="bouquet-wrap" aria-hidden="true">
+        <span class="wrap-left"></span><span class="wrap-right"></span>
+        <span class="bouquet-ribbon"><i></i><b></b></span>
+      </div>
+
+      <div class="bouquet-note" aria-hidden="true">
+        <span>Para Kimberly</span>
+        <strong>que siempre encuentres<br>tu lugar al sol</strong>
+      </div>
+
+      <p class="bouquet-status">
+        {{ bouquetReady ? 'Tu ramo está listo ♡' : 'Las flores están esperando…' }}
+      </p>
+    </div>
+
+    <button
+      class="bouquet-toggle"
+      type="button"
+      [attr.aria-pressed]="bouquetReady"
+      (click)="toggleBouquet()"
+    >
+      <span>{{ bouquetReady ? 'Soltar las flores' : 'Armar el ramo' }}</span>
+      <i aria-hidden="true">{{ bouquetReady ? '↺' : '✿' }}</i>
+    </button>
+  </section>
+
+  <div class="love-ribbon" aria-label="Un mensaje para Kimberly">
+    <div>
+      <span>tu risa</span><i>✦</i><span>tu luz</span><i>♡</i><span>tu forma de querer</span><i>✦</i>
+      <span>tu risa</span><i>✦</i><span>tu luz</span><i>♡</i><span>tu forma de querer</span>
+    </div>
+  </div>
+
+  <section class="gift-section" [class.is-open]="giftOpen">
+    <div class="gift-stars" aria-hidden="true"><span>✦</span><span>·</span><span>✧</span><span>·</span><span>✦</span></div>
+    <div class="gift-intro">
+      <p class="section-kicker">Guardé lo más importante para el final</p>
+      <h2>Hay algo que quiero decirte…</h2>
+      <p>Haz clic en el regalo. Esta parte es solo para ti.</p>
+    </div>
+
+    @if (!giftOpen) {
+      <button class="gift-button" type="button" (click)="openGift()" aria-label="Abrir la carta para Kimberly">
+        <span class="gift-lid"><i></i><b></b></span>
+        <span class="gift-box"><i></i></span>
+        <span class="gift-tag">Ábreme</span>
+      </button>
+    } @else {
+      <div class="confetti-burst" aria-hidden="true">
+        @for (piece of burst; track piece) {
+          <i [style.--i]="piece"></i>
+        }
+      </div>
+      <article class="love-letter" id="carta" aria-live="polite">
+        <span class="letter-tape" aria-hidden="true"></span>
+        <p class="letter-date">Para mi persona favorita</p>
+        <h2>Kimberly,</h2>
+        <p>
+          Si pudiera regalarte algo que no cupiera en una caja, te prestaría mis ojos
+          por un instante para que vieras todo lo hermoso que yo veo en ti.
+        </p>
+        <p>
+          Eres esa amistad que se siente como hogar; la persona que vuelve los días
+          comunes en recuerdos favoritos. Gracias por escucharme, por reír conmigo,
+          por estar y por hacer la vida mucho más bonita con tu forma de ser.
+        </p>
+        <p>
+          Deseo que este nuevo año te encuentre rodeada de amor, cumpliendo sueños
+          que todavía no te atreves a decir en voz alta y sintiéndote profundamente
+          orgullosa de la mujer increíble que eres.
+        </p>
+        <p class="letter-highlight">
+          Feliz cumpleaños, mi mejor amiga. Que la vida te trate bonito siempre,
+          y que yo tenga la fortuna de seguir a tu lado en muchísimas vueltas al sol más.
+        </p>
+        <div class="letter-signature"><span>Con todo mi cariño,</span><strong>tu persona ♡</strong></div>
+        <button class="close-letter" type="button" (click)="giftOpen = false">Guardar esta carta</button>
+      </article>
+    }
+  </section>
+
+  <section class="final-wish">
+    <div class="sunburst" aria-hidden="true"><span>♡</span></div>
+    <p>Y por si hoy nadie te lo ha dicho suficiente…</p>
+    <h2>Eres luz, eres magia<br>y eres muy querida.</h2>
+    <div class="final-toast"><span>Por ti, Kimberly</span><i>✦</i><span>Por todo lo que viene</span></div>
+  </section>
+
+  <footer>
+    <p>Esta página se acaba, pero todo lo bonito que deseo para ti no.</p>
+    <a href="#inicio">Volver al inicio <span>↑</span></a>
+  </footer>
+</main>
